@@ -20,11 +20,6 @@ GROUP BY
 ORDER BY
   month;
 
--- Result Output: 
-month	visits	pageviews	transactions	revenue
-201701	64694	257708	    713	            106248.15
-201702	62192	233373	    733	            116111.6
-201703	69931	259522	    993	            150224.7
 
 -- Query 02: Bounce rate per traffic source in July 2017
 
@@ -42,14 +37,6 @@ GROUP BY
   trafficSource.source
 ORDER BY
   total_visits DESC;
-
-
--- Result Output: 
-source	             total_visits	total_no_of_bounces	bounce_rate
-google	                38400	        19798	        51.55729167
-(direct)	            19891	        8606	        43.2657986
-youtube.com	            6351	        4238	        66.72964887
-analytics.google.com	1972	        1064	        53.95537525
 
 
 -- Query 3: Revenue by traffic source by week, by month in June 2017
@@ -110,16 +97,8 @@ union all
 select * from week_data
 
 
---Result output:
-time_type	time	source	    revenue
-Month	    201706	(direct)	97231.62
-Week	    201724	(direct)	30883.91
-Week	    201725	(direct)	27254.32
-Month	    201706	 google	    18757.18
 
 -- --Query 04: Average number of product pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
--- Note: totals.transactions >=1 for purchaser and totals.transactions is null for non-purchaser
-
 
 WITH
   purchaser_view AS (
@@ -161,13 +140,6 @@ ON
 ORDER BY
   month
 
--- Result output:
-Expected output example:		
-month	avg_pageviews_purchase	avg_pageviews_non_purchase
-201706	25.7357631	            4.074559876
-201707	27.72095436	            4.191840875
-
-
 -- Query 05: Average number of transactions per user that made a purchase in July 2017
 
 SELECT
@@ -183,9 +155,6 @@ WHERE
 GROUP BY
   month
 
--- Result output:
-Month	Avg_total_transactions_per_user
-201707	1.112033195
 
 -- Query 06: Average amount of money spent per session. Only include purchaser data in July 2017
 
@@ -237,12 +206,6 @@ GROUP BY
 ORDER BY
   productQuantity DESC
 
---Result output:
-other_purchased_products	                     quantity
-Google Sunglasses	                             20
-Google Women's Vintage Hero Tee Black	         7
-SPF-15 Slim & Slender Lip Balm	                 6
-Google Women's Short Sleeve Hero Tee Red Heather 4
 
 -- Query 08: Calculate cohort map from pageview to addtocart to purchase in last 3 month. For example, 100% pageview then 40% add_to_cart and 10% purchase.
 
@@ -335,10 +298,3 @@ ON
   cte1_1.row_num=cte3_1.row_num
 ORDER BY
   cte1_1.month
-
-
---Result output:
-month	num_product_view	num_addtocart	num_purchase	add_to_cart_rate	purchase_rate
-201701	25787	            7342	        4328	        28.47	            16.78
-201702	21489	            7360	        4141	        34.25	            19.27
-201703	23549	            8782	        6018	        37.29	            25.56
